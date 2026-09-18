@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Manifesto from '../components/Manifesto.astro';
+import WorkSection from '../components/WorkSection.astro';
+import Capabilities from '../components/Capabilities.astro';
+import Marquee from '../components/Marquee.astro';
+import Studio from '../components/Studio.astro';
+import Journal from '../components/Journal.astro';
+import Contact from '../components/Contact.astro';
+---
+
+<Layout>
+  <div class="shell">
+    <Header />
+
+    <main id="main" class="canvas">
+      <Hero />
+      <Manifesto />
+      <WorkSection />
+      <Capabilities />
+      <Marquee />
+      <Studio />
+      <Journal />
+      <Contact />
+    </main>
+  </div>
+
+  <script src="../scripts/site.js"></script>
+</Layout>

@@ -1,0 +1,38 @@
+---
+interface Props {
+  href: string;
+  variant?: 'full' | 'quiet';
+  tint?: 'light' | 'ink';
+  filled?: boolean;
+  square?: boolean;
+  ariaLabel?: string;
+  navCta?: boolean;
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'full',
+  tint = 'light',
+  filled = false,
+  square = false,
+  ariaLabel,
+  navCta = false,
+  class: extraClass = '',
+} = Astro.props;
+
+const wrapClasses = ['gl', variant === 'quiet' ? 'gl--quiet' : '', tint === 'ink' ? 'gl--ink' : '', extraClass]
+  .filter(Boolean)
+  .join(' ');
+
+const btnClasses = ['gl-b', 'gl-btn', filled ? 'gl-btn--filled' : '', variant === 'quiet' ? 'gl-btn--nav' : '', square ? 'gl-btn--square' : '']
+  .filter(Boolean)
+  .join(' ');
+---
+
+<span class={wrapClasses} style="--gl-r:999px; align-self:stretch;" data-nav-cta={navCta ? '' : undefined}>
+  <a class={btnClasses} href={href} aria-label={ariaLabel}>
+    <span class={`gl-t ${square ? 'gl-icon-wrap' : ''}`}><slot /></span>
+  </a>
+  <span class="gl-s" aria-hidden="true"></span>
+</span>

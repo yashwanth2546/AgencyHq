@@ -1,0 +1,37 @@
+---
+const rows = [
+  { index: '01.', client: '[[PLACEHOLDER: work 01 — client name]]', discipline: '[[discipline]]', year: '[[year]]' },
+  { index: '02.', client: '[[PLACEHOLDER: work 02 — client name]]', discipline: '[[discipline]]', year: '[[year]]' },
+  { index: '03.', client: '[[PLACEHOLDER: work 03 — client name]]', discipline: '[[discipline]]', year: '[[year]]' },
+  { index: '04.', client: '[[PLACEHOLDER: work 04 — client name]]', discipline: '[[discipline]]', year: '[[year]]' },
+  { index: '05.', client: '[[PLACEHOLDER: work 05 — client name]]', discipline: '[[discipline]]', year: '[[year]]' },
+];
+---
+
+<section id="work" aria-label="Selected work" class="work-section">
+  <div class="work-header">
+    <span class="eyebrow">
+      <span class="eyebrow-bullet" aria-hidden="true"></span>Selected work
+    </span>
+    <span class="work-count">05 projects</span>
+  </div>
+
+  <h2 data-reveal class="section-heading"><span>[[PLACEHOLDER: selected work — section heading]]</span></h2>
+
+  <ul data-work-list class="work-list">
+    {rows.map((row) => (
+      <li>
+        <a href="#work" data-work-row class="work-row">
+          <span class="work-index">{row.index}</span>
+          <span class="work-name">{row.client}</span>
+          <span class="work-discipline">{row.discipline}</span>
+          <span class="work-year">{row.year}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div data-work-preview aria-hidden="true" class="work-preview">
+    <span class="work-preview-label">[[thumbnail]]</span>
+  </div>
+</section>

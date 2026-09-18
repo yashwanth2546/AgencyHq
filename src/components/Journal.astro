@@ -1,0 +1,35 @@
+---
+const rows = [
+  { title: '[[PLACEHOLDER: journal row 02 — title]]' },
+  { title: '[[PLACEHOLDER: journal row 03 — title]]' },
+  { title: '[[PLACEHOLDER: journal row 04 — title]]' },
+];
+---
+
+<section id="journal" aria-label="Journal" class="journal">
+  <div class="journal-header">
+    <span class="eyebrow">
+      <span class="eyebrow-bullet" aria-hidden="true"></span>Journal
+    </span>
+    <a href="#journal" class="text-link">View all articles</a>
+  </div>
+
+  <a href="#journal" data-reveal class="journal-featured">
+    <div class="journal-featured-meta">
+      <span class="journal-meta-line">[[PLACEHOLDER: journal featured — category]] · [[date]]</span>
+      <h3 class="journal-featured-title">[[PLACEHOLDER: journal featured — title]]</h3>
+    </div>
+    <div class="journal-featured-body">
+      <p class="journal-abstract">[[PLACEHOLDER: journal featured — abstract]]</p>
+      <span class="journal-read">Read article<span aria-hidden="true">→</span></span>
+    </div>
+  </a>
+
+  {rows.map((row) => (
+    <a href="#journal" class="journal-row">
+      <span class="journal-meta-line">[[category]] · [[date]]</span>
+      <span class="journal-row-title">{row.title}</span>
+      <span class="journal-row-read">Read →</span>
+    </a>
+  ))}
+</section>

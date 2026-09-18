@@ -1,0 +1,47 @@
+---
+import GlassButton from './GlassButton.astro';
+---
+
+<footer id="contact" data-ground="dark" class="contact">
+  <div class="shader-fallback" aria-hidden="true"></div>
+  <webgl-shader force-motion x-scale="0.85" y-scale="0.55" distortion="0.06" intensity="0.015" speed="0.75"></webgl-shader>
+  <div class="contact-scrim" aria-hidden="true"></div>
+
+  <div class="contact-grid">
+    <div class="contact-closing">
+      <h2 data-reveal class="contact-heading"><span>[[PLACEHOLDER: contact — closing statement]]</span></h2>
+      <span class="contact-cta-row">
+        <GlassButton href="#contact" filled>Work with us</GlassButton>
+        <GlassButton href="#contact" filled square ariaLabel="Work with us">→</GlassButton>
+      </span>
+    </div>
+
+    <nav aria-label="Footer" class="footer-nav">
+      <h2 class="footer-nav-heading">Navigate</h2>
+      <ul class="footer-nav-list">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#studio">Studio</a></li>
+        <li><a href="#journal">Journal</a></li>
+        <li><a href="#contact">Work with us</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer-connect">
+      <div class="footer-connect-col">
+        <h2 class="footer-nav-heading">Connect</h2>
+        <ul class="footer-nav-list">
+          <li><a href="#contact">LinkedIn</a></li>
+          <li><a href="#contact">Instagram</a></li>
+          <li><a href="#contact">[[PLACEHOLDER: contact — email address]]</a></li>
+        </ul>
+      </div>
+      <a href="#main" aria-label="Back to top" class="back-to-top">↑</a>
+    </div>
+  </div>
+
+  <p class="legal-line"><span class="copyright-glyph">©</span> 2026 [[AGENCY]]. All rights reserved.</p>
+
+  <div aria-hidden="true" class="wordmark-crop">
+    <span>[[AGENCY]]</span>
+  </div>
+</footer>

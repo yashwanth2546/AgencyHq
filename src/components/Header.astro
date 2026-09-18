@@ -1,0 +1,22 @@
+---
+import GlassButton from './GlassButton.astro';
+---
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site-header">
+  <a href="#main" data-logo class="logo">
+    <span class="logo-mark"></span>
+    <span>[[AGENCY]]</span>
+  </a>
+
+  <nav data-nav class="nav" aria-label="Primary">
+    <span data-nav-track class="nav-track">
+      <span data-nav-pill class="nav-pill" aria-hidden="true"></span>
+      <a data-nav-link href="#work" class="nav-link">Work</a>
+      <a data-nav-link href="#studio" class="nav-link">Studio</a>
+      <a data-nav-link href="#journal" class="nav-link">Journal</a>
+    </span>
+    <GlassButton href="#contact" variant="quiet" navCta>Work with us</GlassButton>
+  </nav>
+</header>
