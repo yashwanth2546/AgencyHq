@@ -1,0 +1,32 @@
+[
+  {
+    "id": "featured",
+    "featured": true,
+    "category": "[[PLACEHOLDER: journal featured — category]]",
+    "date": "[[date]]",
+    "title": "[[PLACEHOLDER: journal featured — title]]",
+    "abstract": "[[PLACEHOLDER: journal featured — abstract]]",
+    "url": "#journal"
+  },
+  {
+    "id": "row-02",
+    "category": "[[category]]",
+    "date": "[[date]]",
+    "title": "[[PLACEHOLDER: journal row 02 — title]]",
+    "url": "#journal"
+  },
+  {
+    "id": "row-03",
+    "category": "[[category]]",
+    "date": "[[date]]",
+    "title": "[[PLACEHOLDER: journal row 03 — title]]",
+    "url": "#journal"
+  },
+  {
+    "id": "row-04",
+    "category": "[[category]]",
+    "date": "[[date]]",
+    "title": "[[PLACEHOLDER: journal row 04 — title]]",
+    "url": "#journal"
+  }
+]

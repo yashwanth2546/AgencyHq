@@ -66,8 +66,21 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .shell {
   background: var(--page);
-  padding: 10px;
   min-height: 100vh;
+}
+
+/* Fixed, viewport-relative ring: an inset rounded rect with a huge spread
+   shadow paints grey everywhere outside itself, clipped to the viewport.
+   Padding on a wrapper does not work here — it only shows grey where the
+   document itself ends, thousands of px below the fold, so the bottom edge
+   would never be on screen. --inset/--radius are written by setFrame(). */
+.page-frame {
+  position: fixed;
+  inset: 10px;
+  border-radius: 18px;
+  box-shadow: 0 0 0 100vmax var(--page);
+  pointer-events: none;
+  z-index: 55;
 }
 
 .skip-link {
@@ -123,7 +136,7 @@ webgl-shader { position: absolute; inset: 0; }
   background: transparent;
   color: #FFFFFF;
   font-size: 19px;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: -.01em;
   transition: background .25s linear, color .25s linear;
 }
@@ -140,6 +153,7 @@ webgl-shader { position: absolute; inset: 0; }
 .nav {
   --nv-ink: 255, 255, 255;
   --nv-pill: 255, 255, 255;
+  flex: none;
   pointer-events: auto;
   display: flex;
   align-items: stretch;
@@ -155,6 +169,7 @@ webgl-shader { position: absolute; inset: 0; }
 }
 
 .nav-track {
+  flex: none;
   position: relative;
   display: flex;
   align-items: center;
@@ -194,7 +209,7 @@ webgl-shader { position: absolute; inset: 0; }
 }
 .nav-link:hover { opacity: 1; }
 
-.nav-cta { align-self: stretch; }
+[data-nav-cta] { flex: none; align-self: stretch; white-space: nowrap; }
 
 /* --------------------------------------------------------------------------
    Eyebrow label chip (shared across sections)
@@ -282,8 +297,16 @@ webgl-shader { position: absolute; inset: 0; }
 .manifesto-rule {
   position: relative;
   margin-top: 56px;
-  border-top: 1px solid var(--paper-hairline);
+  border-top: 1px solid rgba(255, 255, 255, .22);
   width: min(28%, 420px);
+}
+.manifesto-rule-fill {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  height: 1px;
+  width: 0%;
+  background: #FFFFFF;
 }
 
 .manifesto-grid {
@@ -322,6 +345,7 @@ webgl-shader { position: absolute; inset: 0; }
   color: #FFFFFF;
   text-wrap: pretty;
 }
+.step-word { color: #FFFFFF; }
 
 /* --------------------------------------------------------------------------
    Reveal (masked line rise)
@@ -334,9 +358,6 @@ webgl-shader { position: absolute; inset: 0; }
   transition: transform 700ms var(--ease-reveal);
 }
 [data-reveal].is-visible > * { transform: translateY(0); }
-@media (prefers-reduced-motion: reduce) {
-  [data-reveal] > * { transform: translateY(0) !important; transition: none !important; }
-}
 
 /* --------------------------------------------------------------------------
    Selected work
@@ -479,13 +500,6 @@ webgl-shader { position: absolute; inset: 0; }
   to { transform: translate3d(-50%, 0, 0); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none !important; }
-  .marquee, .marquee-track { width: auto !important; display: block !important; }
-  .marquee-line { white-space: normal !important; padding-right: 0 !important; font-size: clamp(40px, 7vw, 104px) !important; text-wrap: pretty; }
-  .marquee-line[aria-hidden="true"] { display: none !important; }
-}
-
 /* --------------------------------------------------------------------------
    Studio
    -------------------------------------------------------------------------- */
@@ -497,7 +511,7 @@ webgl-shader { position: absolute; inset: 0; }
   margin-top: 48px;
   aspect-ratio: 16 / 10;
   max-height: 560px;
-  border-radius: 2px;
+  border-radius: 12px;
   overflow: clip;
   background: repeating-linear-gradient(118deg, rgba(17, 17, 17, .09) 0 2px, transparent 2px 12px), var(--stone);
 }
@@ -769,7 +783,8 @@ webgl-shader { position: absolute; inset: 0; }
     0 4px 2px -2px rgba(var(--gl-ink), .2);
   transition: all var(--gl-t) var(--gl-e);
 }
-.gl-b:hover { transform: scale(.975); backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px); }
+.gl-b:hover { backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px); }
+.gl-b:active { transform: scale(.975); }
 .gl-b::after {
   content: "";
   position: absolute;
@@ -869,7 +884,7 @@ webgl-shader { position: absolute; inset: 0; }
 }
 
 @media (max-width: 460px) {
-  .nav-cta { display: none; }
+  [data-nav-cta] { display: none; }
   .logo { padding: 10px 13px; font-size: 15px; }
   .nav-link { padding: 12px 11px; letter-spacing: .04em; }
 }
@@ -881,10 +896,4 @@ webgl-shader { position: absolute; inset: 0; }
 @media (hover: none) and (pointer: coarse) {
   .gl-b::after, .gl-b:hover::after, .gl-b:active::after { --gl-a1: -75deg; }
   .gl-t::after, .gl-b:active .gl-t::after { --gl-a2: -45deg; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .gl, .gl-b, .gl-s, .gl-s::after, .gl-t::after { transition: none; }
-  .gl:has(.gl-b:active) { transform: none; }
-  .gl-b:hover { transform: none; }
 }

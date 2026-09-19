@@ -1,59 +1,39 @@
 ---
-const panels = [
-  {
-    ground: 'capability--paper',
-    index: '01.',
-    title: '[[PLACEHOLDER: capability 01 — title]]',
-    body: '[[PLACEHOLDER: capability 01 — body]]',
-    mark: 'circles',
-  },
-  {
-    ground: 'capability--ink',
-    index: '02.',
-    title: '[[PLACEHOLDER: capability 02 — title]]',
-    body: '[[PLACEHOLDER: capability 02 — body]]',
-    mark: 'squares',
-  },
-  {
-    ground: 'capability--stone',
-    index: '03.',
-    title: '[[PLACEHOLDER: capability 03 — title]]',
-    body: '[[PLACEHOLDER: capability 03 — body]]',
-    mark: 'grid',
-  },
-];
+import { getCollection } from 'astro:content';
+
+const panels = (await getCollection('capabilities')).sort((a, b) => a.id.localeCompare(b.id));
 ---
 
 <section id="capabilities" aria-label="Capabilities" class="capabilities">
   {panels.map((panel) => (
-    <article class={`capability ${panel.ground}`}>
+    <article class={`capability ${panel.data.ground}`}>
       <div class="capability-head">
-        {panel.mark === 'circles' && (
+        {panel.data.mark === 'circles' && (
           <svg width="98" height="98" viewBox="0 0 98 98" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
             <circle cx="49" cy="49" r="8" />
             <circle cx="49" cy="49" r="46" stroke-dasharray="1 7" />
             <circle cx="49" cy="49" r="28" stroke-dasharray="1 7" />
           </svg>
         )}
-        {panel.mark === 'squares' && (
+        {panel.data.mark === 'squares' && (
           <svg width="98" height="98" viewBox="0 0 98 98" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
             <rect x="12" y="12" width="74" height="74" />
             <rect x="27" y="27" width="44" height="44" />
             <rect x="42" y="42" width="14" height="14" />
           </svg>
         )}
-        {panel.mark === 'grid' && (
+        {panel.data.mark === 'grid' && (
           <svg width="98" height="98" viewBox="0 0 98 98" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
             <path d="M6 34h86M6 64h86M28 12v74M70 12v74" />
             <circle cx="28" cy="34" r="3.5" />
             <circle cx="70" cy="64" r="3.5" />
           </svg>
         )}
-        <span class="capability-index">{panel.index}</span>
+        <span class="capability-index">{panel.id}.</span>
       </div>
       <div>
-        <h3 class="capability-title">{panel.title}</h3>
-        <p class="capability-body">{panel.body}</p>
+        <h3 class="capability-title">{panel.data.title}</h3>
+        <p class="capability-body">{panel.data.body}</p>
       </div>
     </article>
   ))}

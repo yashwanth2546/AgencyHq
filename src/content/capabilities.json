@@ -1,0 +1,23 @@
+[
+  {
+    "id": "01",
+    "ground": "capability--paper",
+    "title": "[[PLACEHOLDER: capability 01 — title]]",
+    "body": "[[PLACEHOLDER: capability 01 — body]]",
+    "mark": "circles"
+  },
+  {
+    "id": "02",
+    "ground": "capability--ink",
+    "title": "[[PLACEHOLDER: capability 02 — title]]",
+    "body": "[[PLACEHOLDER: capability 02 — body]]",
+    "mark": "squares"
+  },
+  {
+    "id": "03",
+    "ground": "capability--stone",
+    "title": "[[PLACEHOLDER: capability 03 — title]]",
+    "body": "[[PLACEHOLDER: capability 03 — body]]",
+    "mark": "grid"
+  }
+]

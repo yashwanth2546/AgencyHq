@@ -1,9 +1,9 @@
 ---
-const rows = [
-  { title: '[[PLACEHOLDER: journal row 02 — title]]' },
-  { title: '[[PLACEHOLDER: journal row 03 — title]]' },
-  { title: '[[PLACEHOLDER: journal row 04 — title]]' },
-];
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('journal');
+const featured = entries.find((e) => e.data.featured);
+const rows = entries.filter((e) => !e.data.featured).sort((a, b) => a.id.localeCompare(b.id));
 ---
 
 <section id="journal" aria-label="Journal" class="journal">
@@ -14,21 +14,23 @@ const rows = [
     <a href="#journal" class="text-link">View all articles</a>
   </div>
 
-  <a href="#journal" data-reveal class="journal-featured">
-    <div class="journal-featured-meta">
-      <span class="journal-meta-line">[[PLACEHOLDER: journal featured — category]] · [[date]]</span>
-      <h3 class="journal-featured-title">[[PLACEHOLDER: journal featured — title]]</h3>
-    </div>
-    <div class="journal-featured-body">
-      <p class="journal-abstract">[[PLACEHOLDER: journal featured — abstract]]</p>
-      <span class="journal-read">Read article<span aria-hidden="true">→</span></span>
-    </div>
-  </a>
+  {featured && (
+    <a href={featured.data.url ?? '#journal'} data-reveal class="journal-featured">
+      <div class="journal-featured-meta">
+        <span class="journal-meta-line">{featured.data.category} · {featured.data.date}</span>
+        <h3 class="journal-featured-title">{featured.data.title}</h3>
+      </div>
+      <div class="journal-featured-body">
+        <p class="journal-abstract">{featured.data.abstract}</p>
+        <span class="journal-read">Read article<span aria-hidden="true">→</span></span>
+      </div>
+    </a>
+  )}
 
   {rows.map((row) => (
-    <a href="#journal" class="journal-row">
-      <span class="journal-meta-line">[[category]] · [[date]]</span>
-      <span class="journal-row-title">{row.title}</span>
+    <a href={row.data.url ?? '#journal'} class="journal-row">
+      <span class="journal-meta-line">{row.data.category} · {row.data.date}</span>
+      <span class="journal-row-title">{row.data.title}</span>
       <span class="journal-row-read">Read →</span>
     </a>
   ))}
