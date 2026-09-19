@@ -132,6 +132,7 @@ webgl-shader { position: absolute; inset: 0; }
   align-items: center;
   gap: 12px;
   padding: 14px 22px;
+  min-height: 44px;
   border-radius: 999px;
   background: transparent;
   color: #FFFFFF;
@@ -160,12 +161,11 @@ webgl-shader { position: absolute; inset: 0; }
   gap: 6px;
   padding: 5px;
   border-radius: 999px;
-  background: rgba(var(--nv-pill), .08);
   border: 1px solid rgba(var(--nv-pill), .16);
   backdrop-filter: blur(14px) saturate(1.4);
   -webkit-backdrop-filter: blur(14px) saturate(1.4);
   box-shadow: 0 8px 30px -12px rgba(0, 0, 0, .35);
-  transition: background .3s linear, border-color .3s linear;
+  transition: border-color .3s linear;
 }
 
 .nav-track {
@@ -236,11 +236,12 @@ webgl-shader { position: absolute; inset: 0; }
 
 .hero {
   position: relative;
-  height: 94vh;
-  min-height: 560px;
+  height: 100svh;
+  min-height: 520px;
   background: var(--void);
-  display: flex;
-  align-items: flex-end;
+  overflow: clip;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
 }
 .hero .shader-fallback {
   background: radial-gradient(120% 90% at 50% 50%, var(--void-lift-1) 0%, var(--void-mid) 55%, var(--void) 100%);
@@ -248,25 +249,75 @@ webgl-shader { position: absolute; inset: 0; }
 .hero-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(5, 5, 5, .82) 0%, rgba(5, 5, 5, 0) 30%);
+  background: linear-gradient(to top, rgba(5, 5, 5, .86) 0%, rgba(5, 5, 5, .15) 42%, rgba(5, 5, 5, 0) 68%);
 }
-.hero-scroll-cue {
+.hero-content {
   position: relative;
-  padding: 32px;
+  align-self: end;
+  min-height: 0;
+  /* 116px top = clearance for the fixed header; growth would otherwise go up under the nav pill */
+  padding: 116px 32px 4px;
+  display: grid;
+  gap: clamp(14px, 2.6svh, 26px);
+}
+.hero-headline {
+  margin: 0;
+  font-size: clamp(40px, min(8.4vw, 13svh), 146px);
+  font-weight: 300;
+  line-height: .92;
+  letter-spacing: -.035em;
+  color: #FFFFFF;
+  mix-blend-mode: difference; /* deliberate: client-approved, ribbons invert through the type */
+  text-wrap: balance;
+}
+.hero-line { display: block; overflow: clip; }
+.hero-line-inner { display: block; }
+.hero-sub-wrap { overflow: clip; }
+.hero-sub {
+  margin: 0;
+  max-width: 44ch;
+  font-size: clamp(15px, 1.3vw, 19px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #FFFFFF;
+  text-wrap: pretty;
+}
+.hero-meta {
+  position: relative;
+  margin: clamp(18px, 3.4svh, 36px) 32px clamp(18px, 2.6svh, 28px);
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, .18);
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: 14px 40px;
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--paper-70);
+  color: rgba(255, 255, 255, .7);
 }
+.hero-meta-avail { display: inline-flex; align-items: center; gap: 10px; color: #FFFFFF; }
+.hero-dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  animation: hero-pulse 2.6s ease-in-out infinite;
+}
+@keyframes hero-pulse {
+  50% { opacity: .34; transform: scale(.72); }
+}
+.hero-meta-scroll { margin-left: auto; display: inline-flex; align-items: center; gap: 12px; color: #FFFFFF; }
 .hero-scroll-rule {
   display: block;
-  width: 1px;
-  height: 38px;
-  background: linear-gradient(#FFFFFF, rgba(255, 255, 255, 0));
+  width: 38px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #FFFFFF);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-dot { animation: none; }
 }
 
 /* --------------------------------------------------------------------------
@@ -297,14 +348,12 @@ webgl-shader { position: absolute; inset: 0; }
 .manifesto-rule {
   position: relative;
   margin-top: 56px;
-  border-top: 1px solid rgba(255, 255, 255, .22);
-  width: min(28%, 420px);
+  height: 1px;
+  background: rgba(255, 255, 255, .22);
 }
 .manifesto-rule-fill {
   position: absolute;
-  top: -1px;
-  left: 0;
-  height: 1px;
+  inset: 0 auto 0 0;
   width: 0%;
   background: #FFFFFF;
 }
@@ -862,7 +911,8 @@ webgl-shader { position: absolute; inset: 0; }
   .logo { padding: 10px 16px; font-size: 16px; gap: 9px; }
   .nav { padding: 4px; }
   .nav-link { padding: 12px 14px; font-size: 11px; letter-spacing: .08em; }
-  .hero { height: 86svh; min-height: 440px; }
+  .hero-content { padding: 116px 20px 4px; }
+  .hero-meta { margin-left: 20px; margin-right: 20px; }
   .manifesto-inner { padding: 0 20px 56px; }
   .step-counter { padding: 8px 14px; }
   .work-section { padding: 88px 20px 16px; }

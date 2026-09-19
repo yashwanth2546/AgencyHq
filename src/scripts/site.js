@@ -239,7 +239,6 @@ function setNav() {
     if (nav) {
       nav.style.setProperty('--nv-ink', ink);
       nav.style.setProperty('--nv-pill', ink);
-      nav.style.background = dark ? 'rgba(255,255,255,.07)' : 'rgba(17,17,17,.05)';
       nav.style.borderColor = dark ? 'rgba(255,255,255,.15)' : 'rgba(17,17,17,.1)';
     }
     if (cta) cta.classList.toggle('gl--ink', !dark);
@@ -492,9 +491,44 @@ function setWorkPreview() {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Hero entrance — two statement lines + subline rise out of their clip
+// wrappers, then the meta rail fades in. Markup ships visible; JS hides it,
+// so a script failure leaves a readable hero. Released at 820ms to land after
+// the capsule load-in has opened. Skipped under prefers-reduced-motion (the
+// one place this page honours it — the hero brief asks for it explicitly).
+// ---------------------------------------------------------------------------
+function setHeroEntrance() {
+  const items = Array.from(document.querySelectorAll('[data-hero-enter]'));
+  const meta = document.querySelector('[data-hero-meta]');
+  if (!items.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  items.forEach((el) => {
+    el.style.transform = 'translateY(115%)';
+    el.style.opacity = '0';
+    el.style.willChange = 'transform, opacity';
+  });
+  if (meta) meta.style.opacity = '0';
+
+  setTimeout(() => {
+    items.forEach((el, i) => {
+      const d = i * 110;
+      el.style.transition = 'transform 1000ms cubic-bezier(0.16,1,0.3,1) ' + d + 'ms, opacity 700ms linear ' + d + 'ms';
+      el.style.transform = 'translateY(0)';
+      el.style.opacity = '1';
+    });
+    if (meta) {
+      meta.style.transition = 'opacity 700ms linear 1450ms';
+      meta.style.opacity = '1';
+    }
+  }, 820);
+}
+
 function init() {
   setFrame();
   setIntro();
+  setHeroEntrance();
   setReveals();
   setNav();
   setPin();
